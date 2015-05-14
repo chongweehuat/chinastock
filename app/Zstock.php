@@ -446,7 +446,7 @@ class Zstock extends Model {
 				->where('id','<',$id2)
 				->where('status','>=',0)
 				->where('lread','<',$last10minutes)
-				->take(60)
+				->take(50)
 				->get();
 		}else{
 			$zstocks=DB::table('zstock')->where('status','>=',0)->where('lread','<',$last10minutes)->get();
