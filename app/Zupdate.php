@@ -40,7 +40,7 @@ class Zupdate extends Model {
 			}
 		}
 		$time_lapse=time()-$time_start;
-		file_put_contents('updatepattern','G: '.$time_lapse.' / '.date('Y-m-d H:i:s'));
+		file_put_contents('updatepattern.txt','G: '.$time_lapse.' / '.date('Y-m-d H:i:s'));
 
 		$n=0;
 		foreach($astocks as $j=>$astock){
@@ -67,7 +67,7 @@ class Zupdate extends Model {
 			}
 		}
 		$time_lapse=time()-$time_start;
-		file_put_contents('updatepattern','H: '.$time_lapse.' / '.date('Y-m-d H:i:s'));
+		file_put_contents('updatepattern.txt','H: '.$time_lapse.' / '.date('Y-m-d H:i:s'));
 
 
 		$n=0;
@@ -93,7 +93,7 @@ class Zupdate extends Model {
 			}
 		}
 		$time_lapse=time()-$time_start;
-		file_put_contents('updatepattern','L: '.$time_lapse.' / '.date('Y-m-d H:i:s'));
+		file_put_contents('updatepattern.txt','L: '.$time_lapse.' / '.date('Y-m-d H:i:s'));
 
 		$n=0;
 		foreach($astocks as $j=>$astock){
@@ -119,7 +119,7 @@ class Zupdate extends Model {
 			}
 		}
 		$time_lapse=time()-$time_start;
-		file_put_contents('updatepattern','N: '.$time_lapse.' / '.date('Y-m-d H:i:s'));
+		file_put_contents('updatepattern.txt','N: '.$time_lapse.' / '.date('Y-m-d H:i:s'));
 		
 		self::updatecsv();
 
@@ -217,7 +217,7 @@ class Zupdate extends Model {
 			}
 		}
 		$time_lapse=time()-$time_start;
-		file_put_contents('updatepattern','P: '.$time_lapse.' / '.date('Y-m-d H:i:s'));
+		file_put_contents('updatepattern.txt','P: '.$time_lapse.' / '.date('Y-m-d H:i:s'));
 
 
 		return $n;
