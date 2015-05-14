@@ -446,6 +446,7 @@ class Zstock extends Model {
 				->where('id','<',$id2)
 				->where('status','>=',0)
 				->where('lread','<',$last5minutes)
+				->take(100)
 				->get();
 		}else{
 			$zstocks=DB::table('zstock')->where('status','>=',0)->where('lread','<',$last5minutes)->get();
@@ -521,7 +522,7 @@ class Zstock extends Model {
 		}
 
 		$time_lapse=time()-$time_start;
-		file_put_contents('stockupdate.txt','Time Lapse:'.$time_lapse.' - '.date('Y-m-d H:i:s'));
+		file_put_contents('stockupdate.txt','Time Lapse:'.$time_lapse.' - '.date('Y-m-d H:i:s').' - '.$n);
 		return $time_lapse;
 	}
 
