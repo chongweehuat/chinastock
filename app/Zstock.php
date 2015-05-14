@@ -430,14 +430,26 @@ class Zstock extends Model {
 		file_put_contents('milestone.txt','updatechanges: '.$time_lapse.' / '.date('Y-m-d H:i:s'));
 	}
 
-	public static function updatelatest(){
+	public static function updatelatest($n=0){
 		date_default_timezone_set('Asia/Kuala_Lumpur');
 		//if(date('H:i')<'09:30')return '';
-		//if(date('H:i')>'16:45')return '';
-		$last15minutes=date('Y-m-d H:i:s',time()-900);
+		//if(date('H:i')>'15:15')return '';
+		//if(date('w')==0 or date('w')==6)return '';
+		$last5minutes=date('Y-m-d H:i:s',time()-300);
 		$time_start=time();
 		set_time_limit(600);
-		$zstocks=DB::table('zstock')->where('status','>=',0)->where('lread','<',$last15minutes)->get();
+		if($n){
+			$id1=$n;
+			$id2=$n+500;
+			$zstocks=DB::table('zstock')
+				->where('id','>=',$id1)
+				->where('id','<',$id2)
+				->where('status','>=',0)
+				->where('lread','<',$last5minutes)
+				->get();
+		}else{
+			$zstocks=DB::table('zstock')->where('status','>=',0)->where('lread','<',$last5minutes)->get();
+		}
 		//$date=date('Y-m-d');
 		//$date=date('2015-05-07');
 		foreach($zstocks as $zstock){
@@ -479,29 +491,31 @@ class Zstock extends Model {
 			}
 		}
 
-		$content=self::geturlcontents("http://hq.sinajs.cn/list=sh000001");
-		$a=explode('"',$content);
-		$a1=explode('"',$a[1]);
-		$aresult=explode(',',$a1[0]);
+		if($n<=1){
+			$content=self::geturlcontents("http://hq.sinajs.cn/list=sh000001");
+			$a=explode('"',$content);
+			$a1=explode('"',$a[1]);
+			$aresult=explode(',',$a1[0]);
 
-		if(count($aresult)>30){
-			if($aresult[3]>0){
-				$date=$aresult[30];
-				
-				$afield=[
-				'date'=>$date,
-				'open'=>$aresult[1],
-				'high'=>$aresult[4],
-				'low'=>$aresult[5],
-				'close'=>$aresult[3],
-				'volume'=>$aresult[8]
-				];
-				
-				$zsh=DB::table('zsh')->where('date',$date);
-				if(count($zsh->get())){
-					$zsh->update($afield);
-				}else{
-					DB::table('zsh')->insert($afield);
+			if(count($aresult)>30){
+				if($aresult[3]>0){
+					$date=$aresult[30];
+					
+					$afield=[
+					'date'=>$date,
+					'open'=>$aresult[1],
+					'high'=>$aresult[4],
+					'low'=>$aresult[5],
+					'close'=>$aresult[3],
+					'volume'=>$aresult[8]
+					];
+					
+					$zsh=DB::table('zsh')->where('date',$date);
+					if(count($zsh->get())){
+						$zsh->update($afield);
+					}else{
+						DB::table('zsh')->insert($afield);
+					}
 				}
 			}
 		}

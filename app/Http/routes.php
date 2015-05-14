@@ -12,8 +12,9 @@
 */
 
 Route::get('test',function(){
+	return date('w');
 	//return file_get_contents("http://hq.sinajs.cn/list=sh601006");
-	return App\Zstock::geturlcontents("http://hq.sinajs.cn/list=sh601006");
+	//return App\Zstock::geturlcontents("http://hq.sinajs.cn/list=sh601006");
 	//return App\Zbest::vdownpup();
 
 	//return date('Y-m-d',time()-(3600*24*100));
@@ -33,6 +34,12 @@ Route::get('test',function(){
 	//return phpinfo();	
 	//return App\Zstock::importhistory();
 });
+
+Route::get('/updatelatest',function(){
+	return App\Zstock::updatelatest(0);
+});
+
+Route::get('/updatelatest/{section}','BestController@updatelatest');
 
 Route::get('/updatepattern',function(){	
 	return App\Zupdate::lastdata();
@@ -81,9 +88,6 @@ Route::get('/similar',function(){
 	return App\Zstock::similar(Input::get('c'));
 });
 
-Route::get('/updatelatest',function(){
-	return App\Zstock::updatelatest();
-});
 
 Route::get('/updatechanges',function(){
 	return App\Zstock::updatechanges();
