@@ -12,6 +12,7 @@
 */
 
 Route::get('test',function(){
+	return App\Zstock::geturlcontents("http://hq.sinajs.cn/list=sh601006");
 	//return App\Zbest::vdownpup();
 
 	//return date('Y-m-d',time()-(3600*24*100));
@@ -19,7 +20,7 @@ Route::get('test',function(){
 
 	//return App\Zbest::bestpattern();
 
-	return App\Zupdate::updatecsv();
+	//return App\Zupdate::updatecsv();
 	//return App\Zupdate::importcsv();
 	
 	//return App\Zupdate::lastdata();
