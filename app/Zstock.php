@@ -435,7 +435,7 @@ class Zstock extends Model {
 		//if(date('H:i')<'09:30')return '';
 		//if(date('H:i')>'15:15')return '';
 		//if(date('w')==0 or date('w')==6)return '';
-		$last5minutes=date('Y-m-d H:i:s',time()-300);
+		$last6minutes=date('Y-m-d H:i:s',time()-360);
 		$time_start=time();
 		set_time_limit(600);
 		if($n){
@@ -449,7 +449,7 @@ class Zstock extends Model {
 				->take(100)
 				->get();
 		}else{
-			$zstocks=DB::table('zstock')->where('status','>=',0)->where('lread','<',$last5minutes)->get();
+			$zstocks=DB::table('zstock')->where('status','>=',0)->where('lread','<',$last6minutes)->get();
 		}
 		//$date=date('Y-m-d');
 		//$date=date('2015-05-07');
