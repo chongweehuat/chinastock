@@ -445,7 +445,7 @@ class Zstock extends Model {
 				->where('id','>=',$id1)
 				->where('id','<',$id2)
 				->where('status','>=',0)
-				->where('lread','<',$last5minutes)
+				->where('lread','<',$last6minutes)
 				->take(100)
 				->get();
 		}else{
