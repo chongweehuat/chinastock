@@ -433,9 +433,9 @@ class Zstock extends Model {
 	public static function updatelatest($n=0){
 		date_default_timezone_set('Asia/Kuala_Lumpur');
 		//if(date('H:i')<'09:30')return '';
-		//if(date('H:i')>'15:15')return '';
-		//if(date('w')==0 or date('w')==6)return '';
-		$last6minutes=date('Y-m-d H:i:s',time()-360);
+		if(date('H:i')>'15:15')return '';
+		if(date('w')==0 or date('w')==6)return '';
+		$last10minutes=date('Y-m-d H:i:s',time()-600);
 		$time_start=time();
 		set_time_limit(600);
 		if($n){
@@ -445,11 +445,11 @@ class Zstock extends Model {
 				->where('id','>=',$id1)
 				->where('id','<',$id2)
 				->where('status','>=',0)
-				->where('lread','<',$last6minutes)
+				->where('lread','<',$last10minutes)
 				->take(100)
 				->get();
 		}else{
-			$zstocks=DB::table('zstock')->where('status','>=',0)->where('lread','<',$last6minutes)->get();
+			$zstocks=DB::table('zstock')->where('status','>=',0)->where('lread','<',$last10minutes)->get();
 		}
 		//$date=date('Y-m-d');
 		//$date=date('2015-05-07');
