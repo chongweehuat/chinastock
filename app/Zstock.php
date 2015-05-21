@@ -430,13 +430,30 @@ class Zstock extends Model {
 		file_put_contents('milestone.txt','updatechanges: '.$time_lapse.' / '.date('Y-m-d H:i:s'));
 	}
 
+	public static function updatename(){
+		$zstocks=DB::select("select id,code,name from zstock where status>=0");
+		foreach($zstocks as $zstock){
+				$content=self::geturlcontents("http://hq.sinajs.cn/list={$zstock->code}");
+				$a=explode('"',$content);
+				$a1=explode('"',$a[1]);
+				$aresult=explode(',',$a1[0]);
+				
+				if(substr($aresult[0],0,1)=='*'){
+					//dd($zstock->name,$zstock->code,'*ST '.$zstock->name);
+					DB::table('zstock')->where('id',$zstock->id)->update(['status'=>-4,'name'=>'*ST '.$zstock->name]);
+				}
+		}
+	}
+
 	public static function updatelatest($n=0){
 		date_default_timezone_set('Asia/Kuala_Lumpur');
-		if(date('H:i')<'09:30')return '';
-		if(date('H:i')>'11:30' and date('H:i')<'13:00')return '';
-		if(date('H:i')>'15:30')return '';
-		if(date('w')==0 or date('w')==6)return '';
-		$last10minutes=date('Y-m-d H:i:s',time()-900);
+		if($n>0){
+			if(date('H:i')<'09:30')return '';
+			if(date('H:i')>'11:30' and date('H:i')<'13:00')return '';
+			if(date('H:i')>'15:30')return '';
+			if(date('w')==0 or date('w')==6)return '';
+		}
+		$last10minutes=date('Y-m-d H:i:s',time()-0);
 		$time_start=time();
 		set_time_limit(600);
 		if($n){

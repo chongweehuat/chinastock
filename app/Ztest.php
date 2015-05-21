@@ -7,6 +7,14 @@ use App\Gps;
 
 class Ztest extends Model {
 
+	public static function removetrade(){
+		$astocks=DB::select("select id from zstock where status<0");
+		foreach($astocks as $astock){
+			DB::delete("delete from ztrade where zstock_id={$astock->id}");
+		}
+		return 'OK';
+	}
+
 	public static function updatepattern(){
 		set_time_limit(900);
 		$arows=DB::table('ztrade')->groupby('date')->get();

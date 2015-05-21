@@ -12,7 +12,16 @@
 */
 
 Route::get('test',function(){
-	return date('w');
+	//return App\Ztest::removetrade();
+	
+	//return App\Zdstudy::plist();
+	//return App\Zdstudy::cleandb();
+
+	//return App\Zstudy1::maxwin();
+
+	//return App\Zstock::updatename();	
+
+	//return App\Zstudy1::plist();
 	//return file_get_contents("http://hq.sinajs.cn/list=sh601006");
 	//return App\Zstock::geturlcontents("http://hq.sinajs.cn/list=sh601006");
 	//return App\Zbest::vdownpup();
@@ -38,6 +47,8 @@ Route::get('test',function(){
 Route::get('/updatelatest',function(){
 	return App\Zstock::updatelatest(0);
 });
+
+Route::get('/study/{page}','BestController@study');
 
 Route::get('/updatelatest/{section}','BestController@updatelatest');
 
