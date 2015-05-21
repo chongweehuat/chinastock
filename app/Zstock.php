@@ -540,7 +540,7 @@ class Zstock extends Model {
 		}
 
 		$time_lapse=time()-$time_start;
-		file_put_contents('stockupdate.txt','Time Lapse:'.$time_lapse.' - '.date('Y-m-d H:i:s').' - '.$n);
+		file_put_contents('stockupdate.txt'.$n,'Time Lapse:'.$time_lapse.' - '.date('Y-m-d H:i:s').' - '.$n);
 		return $time_lapse;
 	}
 
