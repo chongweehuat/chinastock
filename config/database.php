@@ -55,7 +55,7 @@ return [
 		'mysql' => [
 			'driver'    => 'mysql',
 			'host'      => env('DB_HOST', 'localhost'),
-			'database'  => env('DB_DATABASE', 'chinastock'),
+			'database'  => env('DB_DATABASE', 'ahufzksewj'),
 			'username'  => env('DB_USERNAME', 'ahufzksewj'),
 			'password'  => env('DB_PASSWORD', 'JtWFkR2ztG'),
 			'charset'   => 'utf8',
