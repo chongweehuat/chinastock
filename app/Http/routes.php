@@ -21,27 +21,15 @@ Route::get('test',function(){
 
 	//return App\Zstock::updatename();	
 
-	//return App\Zstudy1::plist();
-	//return file_get_contents("http://hq.sinajs.cn/list=sh601006");
-	//return App\Zstock::geturlcontents("http://hq.sinajs.cn/list=sh601006");
-	//return App\Zbest::vdownpup();
-
-	//return date('Y-m-d',time()-(3600*24*100));
-	//return App\Ztrade::plist();
-
-	//return App\Zbest::bestpattern();
-
-	//return App\Zupdate::updatecsv();
-	//return App\Zupdate::importcsv();
 	
-	//return App\Zupdate::lastdata();
-	//return App\Ztest::checkpattern();
-	//
-	//return App\Ztest::vibrate();
-	//
-	//return App\Ztest::toppattern('2015-04-08','2015-04-09');
-	//return phpinfo();	
-	//return App\Zstock::importhistory();
+});
+
+Route::get('/upload/lastid',function(){
+	return App\Zupload::lastid();
+});
+
+Route::get('/upload/data',function(){
+	return App\Zupload::data();
 });
 
 Route::get('/updatelatest',function(){

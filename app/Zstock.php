@@ -458,13 +458,13 @@ class Zstock extends Model {
 		set_time_limit(600);
 		if($n){
 			$id1=$n;
-			$id2=$n+500;
+			$id2=$n+300;
 			$zstocks=DB::table('zstock')
 				->where('id','>=',$id1)
 				->where('id','<',$id2)
 				->where('status','>=',0)
-				->where('lread','<',$last10minutes)
-				->take(50)
+				//->where('lread','<',$last10minutes)
+				//->take(50)
 				->get();
 		}else{
 			$zstocks=DB::table('zstock')->where('status','>=',0)->where('lread','<',$last10minutes)->get();
