@@ -15,7 +15,7 @@ class Zstudy1 extends Model {
 		$astocks=array();
 		$aid=array();
 
-		$sql="select p1,p2,sum(cprofit) as n from zdstudy where date>='{$mdate}' and p2<=9 group by p1,p2 order by n desc limit 100";
+		$sql="select p1,p2,sum(cprofit) as n from zdstudy where date>='{$mdate}' and p2<=9.5 group by p1,p2 order by n desc limit 100";
 		$zdstudy=DB::select($sql);
 		//file_put_contents('cprofit',serialize($zdstudy));
 		//$zdstudy=unserialize(file_get_contents('cprofit'));
@@ -34,7 +34,7 @@ class Zstudy1 extends Model {
 			}
 		}
 
-		$zdstudy=DB::select("select p1,p2,sum(hprofit) as n from zdstudy where date>='{$mdate}' and p2<=9 group by p1,p2 order by n desc limit 100");
+		$zdstudy=DB::select("select p1,p2,sum(hprofit) as n from zdstudy where date>='{$mdate}' and p2<=9.5 group by p1,p2 order by n desc limit 100");
 		//file_put_contents('hprofit',serialize($zdstudy));
 		//$zdstudy=unserialize(file_get_contents('hprofit'));
 		foreach($zdstudy as $z){
