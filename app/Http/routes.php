@@ -12,6 +12,7 @@
 */
 
 Route::get('test',function(){
+	return App\Zupdate::lastdata();
 	//return App\Ztest::removetrade();
 	
 	//return App\Zdstudy::plist();
