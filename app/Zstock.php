@@ -448,10 +448,10 @@ class Zstock extends Model {
 	public static function updatelatest($n=0){
 		date_default_timezone_set('Asia/Kuala_Lumpur');
 		if($n>0){
-//			if(date('H:i')<'09:30')return '';
+			if(date('H:i')<'09:30')return '';
 			if(date('H:i')>'11:30' and date('H:i')<'13:00')return '';
 			if(date('H:i')>'15:30')return '';
-//			if(date('w')==0 or date('w')==6)return '';
+			if(date('w')==0 or date('w')==6)return '';
 		}
 		$last10minutes=date('Y-m-d H:i:s',time()-0);
 		$time_start=time();

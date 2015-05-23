@@ -13,7 +13,7 @@ class Zupdate extends Model {
 		$astocks=DB::table('zstock')->where('status','>=',0)->get();
 		$gdate=date('Y-m-d',time()-(3600*24*10));
 
-
+return $astocks;
 		$n=0;
 		foreach($astocks as $j=>$astock){
 			$arows=DB::table('ztrade')
@@ -41,7 +41,7 @@ class Zupdate extends Model {
 		}
 		$time_lapse=time()-$time_start;
 		file_put_contents('updatepattern.txt','G: '.$time_lapse.' / '.date('Y-m-d H:i:s'));
-
+return $time_lapse;
 		$n=0;
 		foreach($astocks as $j=>$astock){
 			$arows=DB::table('ztrade')
