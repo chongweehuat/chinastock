@@ -13,7 +13,7 @@ class Zupdate extends Model {
 		$astocks=DB::table('zstock')->where('status','>=',0)->get();
 		$gdate=date('Y-m-d',time()-(3600*24*10));
 
-return $astocks;
+
 		$n=0;
 		foreach($astocks as $j=>$astock){
 			$arows=DB::table('ztrade')
