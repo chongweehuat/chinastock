@@ -92,7 +92,7 @@ class Zstudy1 extends Model {
 		$date=DB::table('zsh')->max('date');
 		$date1=DB::table('zdstudy')->max('date');
 
-		$zsh=DB::select("select date from zsh where date>'$date1' and date<'$date'");
+		$zsh=DB::select("select date from zsh where date>'$date1' and date<'$date' order by date");
 		if(count($zsh)==0)return 0;
 
 		$date=$zsh[0]->date;
