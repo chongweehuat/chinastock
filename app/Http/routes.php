@@ -12,7 +12,9 @@
 */
 
 Route::get('test',function(){
-	return App\Zupdate::lastdata();
+	return App\Import::data();
+	//return App\Zstock::importhistory();
+	//return App\Zupdate::lastdata();
 	//return App\Ztest::removetrade();
 	
 	//return App\Zdstudy::plist();

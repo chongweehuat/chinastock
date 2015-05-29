@@ -557,16 +557,18 @@ class Zstock extends Model {
 	public static function importhistory(){
 		set_time_limit(0);
 		$last_month=date('Y-m-d',time()-3600*24*90);
-		$zstocks=DB::table('zstock')->where('fdate','=','0000-00-00')->where('status','>=',0)->get();
+		//$zstocks=DB::table('zstock')->where('fdate','=','0000-00-00')->where('status','>=',0)->get();
+		$zstocks=DB::table('zstock')->where('status','>=',0)->get();
 		foreach($zstocks as $zstock){
 			$code=substr($zstock->code,2);
 			$postfix='sz';
 			if(substr($zstock->code,0,2)=='sh')$postfix='ss';						
-			$content=Gps::geturlcontents("http://table.finance.yahoo.com/table.csv?s={$code}.{$postfix}");
+			$content=self::geturlcontents("http://table.finance.yahoo.com/table.csv?s={$code}.{$postfix}");
 			if(strpos($content,'the page you requested was not found')=== false){
 				$acontents=explode(chr(10),$content);
 				foreach($acontents as $k=>$v){
 					$acontent=explode(',',$v);
+					if($acontent[0]<>'2015-05-22')continue;
 					if($k){
 						if($acontent[0]<$last_month){
 							if($k==1){
@@ -604,7 +606,7 @@ class Zstock extends Model {
 				}
 				//break;
 			}else{
-				DB::table('zstock')->where('id',$zstock->id)->update(['status'=>-1]);
+				DB::table('zstock')->where('id',$zstock->id)->update(['status'=>-6]);
 				$acontent=array();
 			}			
 		}
