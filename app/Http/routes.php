@@ -11,6 +11,17 @@
 |
 */
 
+Route::get('/imports',function(){
+	return '<frameset cols="25%,*,25%">
+			  <frame src="/import/1">
+			  <frame src="/import/2">
+			  <frame src="/import/3">
+			  <frame src="/import/4">
+			</frameset>';
+});
+
+Route::get('/import/{code}', 'ZtradeController@import');
+
 Route::get('test',function(){
 	return App\Import::data();
 	//return App\Zstock::importhistory();

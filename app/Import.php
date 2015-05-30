@@ -5,15 +5,29 @@ use DB;
 
 class Import extends Model {
 
-	public static function data(){
+	public static function data($n=1){
 		date_default_timezone_set('Asia/Kuala_Lumpur');		
+
+		$zimport=DB::table('zimport')->find($n);
+		if($zimport->ncount==-1)return 0;
+
+		$zimport=DB::table('zimport')->where('id',$n)->update([
+			'date_start'=>date('Y-m-d H:i:s'),
+			'ncount'=>-1,
+			]);
+		
+		
 		$time_start=time();
 		set_time_limit(0);
 
-		DB::table('ztradedata')->truncate();
+		$tn='ztradedata'.$n;
+
+		DB::table($tn)->truncate();
 		
-		$zstocks=DB::table('zstock')->where('status','>=',0)->get();
-		
+		$nstart=($n-1)*500;
+		$zstocks=DB::select("select * from zstock where status>=0 order by code limit $nstart,500");
+
+		$ncount=0;
 		foreach($zstocks as $zstock){
 			$content=self::geturlcontents("http://hq.sinajs.cn/list={$zstock->code}");
 			$a=explode('"',$content);
@@ -35,15 +49,19 @@ class Import extends Model {
 					'volume'=>$aresult[8]
 					];
 
-					DB::table('ztradedata')->insert($afield);
+					DB::table($tn)->insert($afield);
+					$ncount++;
 				}
 
 			}
 		}
 
+		$zimport=DB::table('zimport')->where('id',$n)->update([
+			'date_end'=>date('Y-m-d H:i:s'),
+			'ncount'=>$ncount,
+			]);
 
 		$time_lapse=time()-$time_start;
-		file_put_contents('stockupdate.txt','Time Lapse:'.$time_lapse.' - '.date('Y-m-d H:i:s'));
 		return $time_lapse;
 	}
 
